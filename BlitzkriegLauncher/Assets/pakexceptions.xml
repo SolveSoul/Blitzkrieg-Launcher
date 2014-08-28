@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <pakexceptions>
-	<pak>buildings.pak</pak>
-	<pak>units.pak</pak>
+	<pak>buildings</pak>
+	<pak>units</pak>
 </pakexceptions>

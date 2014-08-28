@@ -30,7 +30,14 @@ namespace BlitzkriegLauncher.Helpers
                 result.AddRange(GetPakFilesFromStringArray(activePaks, true));
                 result.AddRange(GetPakFilesFromStringArray(inactivePaks, false));
 
-                ReadPakExceptions();
+                //remove all the .pak-files that may not be edited
+                ObservableCollectionExtended<PakFile> paksToExclude = ReadPakExceptions();
+                List<PakFile> paksToCheck = result.ToList();                                    //Whilst foreaching, the collection may not be changed, that's why we make a copy, also a list because an observablecollection copies the values
+
+                foreach (PakFile exc in paksToExclude)
+                    foreach (PakFile p in paksToCheck)
+                        if (exc.Name == p.Name)
+                            result.Remove(p);
             }
             else
             {
@@ -42,7 +49,6 @@ namespace BlitzkriegLauncher.Helpers
             return result;
         }
 
-        //helpers
         private static ObservableCollectionExtended<PakFile> GetPakFilesFromStringArray(string[] pakFiles, bool isActive) 
         {
             ObservableCollectionExtended<PakFile> result = new ObservableCollectionExtended<PakFile>();
@@ -56,13 +62,17 @@ namespace BlitzkriegLauncher.Helpers
             return result;
         }
 
-        private static IEnumerable<PakFile> ReadPakExceptions() 
+        private static ObservableCollectionExtended<PakFile> ReadPakExceptions() 
         {
             string xmlPath = AppDomain.CurrentDomain.BaseDirectory + "pakexceptions.xml";
             ObservableCollectionExtended<PakFile> result = new ObservableCollectionExtended<PakFile>();
 
-            if (!File.Exists(xmlPath))
-                MessageBox.Show("Couldn't load the pakfiles to exclude, loading all pak-files...", "pakexceptions.xml not found", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!File.Exists(xmlPath)) 
+            {
+                MessageBox.Show("Couldn't load the pakfiles to exclude, please restore the 'pakexceptions.xml' file", "pakexceptions.xml not found", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
+            }
+                
 
             XmlDocument xdoc = new XmlDocument();
             xdoc.Load(xmlPath);
