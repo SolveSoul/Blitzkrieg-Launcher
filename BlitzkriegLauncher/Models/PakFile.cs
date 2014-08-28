@@ -9,9 +9,23 @@ namespace BlitzkriegLauncher.Models
 {
     public class PakFile
     {
-        public String Name { get; set; }
+        public string Name { get; set; }
         public bool IsActive { get; set; }
         public string FullPath { get; set; }
+
+        public override string ToString()
+        {
+            return this.Name + " - " + this.IsActive;
+        }
+
+        public void ChangeExtension() 
+        {
+            if (this.IsActive)
+                this.FullPath = this.FullPath.Replace(".inpak", ".pak");
+            else
+                this.FullPath = this.FullPath.Replace(".pak", ".inpak");
+        }
+
     }
 
 }

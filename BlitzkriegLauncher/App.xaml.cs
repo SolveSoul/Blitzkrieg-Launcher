@@ -18,7 +18,6 @@ namespace BlitzkriegLauncher
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            //base.OnStartup(e);
             scanner = new PakFileScanner();
         }
     }

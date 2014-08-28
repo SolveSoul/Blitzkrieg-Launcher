@@ -47,5 +47,17 @@ namespace BlitzkriegLauncher
 
         #endregion
 
+        private void ChangePakState(object sender, RoutedEventArgs e)
+        {
+            CheckBox c = (CheckBox)sender;
+            string name = (string)c.Tag;
+            PakFile pakfileToHandle = PakFileHandler.FindPakFileByName(pakFiles, name);
+
+            if (pakfileToHandle != null) 
+                PakFileHandler.ChangePakFilesExtension(pakfileToHandle);
+            
+            
+        }
+
     }
 }

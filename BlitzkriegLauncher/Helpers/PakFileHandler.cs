@@ -5,14 +5,16 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BlitzkriegLauncher.Helpers
 {
     public class PakFileHandler
     {
-
+        //fields
         private static string baseDir = AppDomain.CurrentDomain.BaseDirectory;
 
+        #region loading files
         public static ObservableCollectionExtended<PakFile> LoadPakFiles()
         {
             ObservableCollectionExtended<PakFile> result = new ObservableCollectionExtended<PakFile>();
@@ -35,12 +37,50 @@ namespace BlitzkriegLauncher.Helpers
 
             foreach (string pakPath in pakFiles)
             {
-                PakFile pak = new PakFile() { Name = Path.GetFileNameWithoutExtension(pakPath), FullPath = pakPath, IsActive = true };
+                PakFile pak = new PakFile() { Name = Path.GetFileNameWithoutExtension(pakPath), FullPath = pakPath, IsActive = isActive };
                 result.Add(pak);
             }
 
             return result;
         }
 
+        #endregion
+
+        #region finding files
+        public static PakFile FindPakFileByName(IEnumerable<PakFile> files, string name) 
+        {
+            foreach (PakFile pf in files)
+                if (pf.Name == name)
+                    return pf;
+            
+            return null;
+        }
+        #endregion
+
+        #region changing files
+
+        public static void ChangePakFilesExtension(PakFile file) 
+        {
+            try
+            {
+                if (!file.IsActive)
+                {
+                    File.Move(file.FullPath, Path.ChangeExtension(file.FullPath, ".inpak"));
+                    file.ChangeExtension();
+
+                }
+                else
+                {
+                    File.Move(file.FullPath, Path.ChangeExtension(file.FullPath, ".pak"));
+                    file.ChangeExtension();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("The file was not found, please restart the launcher.", "File not found");
+            }  
+        }
+
+        #endregion
     }
 }

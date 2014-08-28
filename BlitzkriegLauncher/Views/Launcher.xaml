@@ -7,7 +7,7 @@
         
         <DataTemplate x:Key="PakFileItemTemplate">
             <StackPanel Height="35" Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding IsActive}" />
+                <CheckBox IsChecked="{Binding IsActive}" Tag="{Binding Name}" Click="ChangePakState" />
                 <TextBlock Text="{Binding Name}" />
             </StackPanel>
         </DataTemplate>
