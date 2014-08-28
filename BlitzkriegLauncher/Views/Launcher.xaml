@@ -26,6 +26,9 @@
     </Window.Resources>
     
     <Border BorderBrush="Black" BorderThickness="1">
+        <Border.Background>
+            <ImageBrush ImageSource="../Assets/background.jpg" Stretch="UniformToFill" />
+        </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
@@ -33,11 +36,15 @@
             </Grid.RowDefinitions>
             
             <!-- Custom window border-->
-            <Grid Grid.Row="0">
-                <TextBlock Background="Black" MouseDown="DragWindow">
-                <TextBlock Text="Blitzkrieg Launcher" Margin="5,2,2,2" Foreground="White" FontSize="14" />
-                    <Button Content="X"  Margin="370,5,2,2" Width="20" Background="DarkRed" Foreground="White" BorderThickness="1" Click="CloseWindow" />
-                </TextBlock>
+            <Grid Grid.Row="0" MouseDown="DragWindow" Background="Black">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="30" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Text="Blitzkrieg Launcher" Margin="5,0,0,0" Foreground="White" FontSize="14" VerticalAlignment="Center" Grid.Column="0" />
+                <Button Content="X" Width="20" Height="20" Background="DarkRed" Foreground="White" BorderThickness="1" Click="CloseWindow" Grid.Column="1" />
+
             </Grid>
             
             <!-- Window content-->
@@ -46,8 +53,8 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="22" />
                 </Grid.RowDefinitions>
-                <ListBox x:Name="lstPakFiles" HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource PakFileItemTemplate}" Grid.Row="0" />
-                <Button Content="Launch game" Click="LaunchGame" Grid.Row="1" />
+                <ListBox x:Name="lstPakFiles" HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource PakFileItemTemplate}" Grid.Row="0" Opacity="0.8" />
+                <Button Content="Launch game" Click="LaunchGame" Grid.Row="1" Opacity="0.8" />
             </Grid>
             
         </Grid>
