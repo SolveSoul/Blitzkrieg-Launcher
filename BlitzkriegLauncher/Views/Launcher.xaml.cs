@@ -60,5 +60,10 @@ namespace BlitzkriegLauncher
             
         }
 
+        private void LaunchGame(object sender, RoutedEventArgs e)
+        {
+            GameLauncher.LaunchGame();
+        }
+
     }
 }

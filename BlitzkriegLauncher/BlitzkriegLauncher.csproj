@@ -61,6 +61,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\GameLauncher.cs" />
     <Compile Include="Helpers\ObservableCollectionExtended.cs" />
     <Compile Include="Helpers\PakFileHandler.cs" />
     <Compile Include="Helpers\PakFileScanner.cs" />
