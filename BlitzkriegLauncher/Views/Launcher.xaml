@@ -5,11 +5,19 @@
     
     <Window.Resources>
         
+        <Style x:Key="PakFileItemStyle" TargetType="Grid">
+            <Setter Property="Background" Value="AliceBlue" />
+        </Style>
+        
         <DataTemplate x:Key="PakFileItemTemplate">
-            <StackPanel Height="35" Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding IsActive}" Tag="{Binding Name}" Click="ChangePakState" />
-                <TextBlock Text="{Binding Name}" />
-            </StackPanel>
+            <Grid Height="35" Style="{StaticResource PakFileItemStyle}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="25" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Name}" Margin="5,0,0,0" VerticalAlignment="Center" FontSize="15" Grid.Column="0" />
+                <CheckBox IsChecked="{Binding IsActive}" Tag="{Binding Name}" Click="ChangePakState" VerticalAlignment="Center" Grid.Column="1" />
+            </Grid>
         </DataTemplate>
         
     </Window.Resources>
@@ -26,7 +34,7 @@
                 </TextBlock>
             </StackPanel>
             <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <ListBox x:Name="lstPakFiles" Width="300" MinHeight="313" ItemTemplate="{StaticResource PakFileItemTemplate}" />
+                <ListBox x:Name="lstPakFiles" HorizontalContentAlignment="Stretch" MinHeight="313" ItemTemplate="{StaticResource PakFileItemTemplate}" />
             </StackPanel>
         </StackPanel>
     </Border>
