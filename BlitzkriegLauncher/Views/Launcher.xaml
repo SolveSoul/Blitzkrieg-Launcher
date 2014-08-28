@@ -13,12 +13,12 @@
         </Style>
         
         <DataTemplate x:Key="PakFileItemTemplate">
-            <Grid Height="35" Style="{StaticResource PakFileItemStyle}" Background="{Binding IsActive, Converter={StaticResource BooleanToColorConverter}}">
+            <Grid Height="35" Style="{StaticResource PakFileItemStyle}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="25" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{Binding Name}" Margin="5,0,0,0" VerticalAlignment="Center" FontSize="15" Grid.Column="0" />
+                <TextBlock Text="{Binding Name}" Margin="5,0,0,0" VerticalAlignment="Center" FontSize="15" Grid.Column="0" Foreground="{Binding IsActive, Converter={StaticResource BooleanToColorConverter}}" FontWeight="Bold" />
                 <CheckBox IsChecked="{Binding IsActive}" Tag="{Binding Name}" Click="ChangePakState" VerticalAlignment="Center" Grid.Column="1" />
             </Grid>
         </DataTemplate>
@@ -33,10 +33,11 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
             </Grid.RowDefinitions>
             
             <!-- Custom window border-->
-            <Grid Grid.Row="0" MouseDown="DragWindow" Background="Black">
+            <Grid Grid.Row="0" MouseDown="DragWindow" Background="#f6b152">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="30" />
@@ -53,8 +54,12 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="22" />
                 </Grid.RowDefinitions>
-                <ListBox x:Name="lstPakFiles" HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource PakFileItemTemplate}" Grid.Row="0" Opacity="0.8" />
-                <Button Content="Launch game" Click="LaunchGame" Grid.Row="1" Opacity="0.8" />
+                <ListBox x:Name="lstPakFiles" HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource PakFileItemTemplate}" Grid.Row="0" Opacity="0.6" />
+                <Button Content="Launch game" Click="LaunchGame" Grid.Row="1" Opacity="0.6" />
+            </Grid>
+
+            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Background="#f6b152">
+                <TextBlock Text="© Copyright SolveSoul" Foreground="White" Margin="5,2,0,2" />
             </Grid>
             
         </Grid>

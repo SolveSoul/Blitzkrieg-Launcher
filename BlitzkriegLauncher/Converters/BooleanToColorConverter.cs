@@ -16,9 +16,9 @@ namespace BlitzkriegLauncher.Converters
             bool isActive = (bool)value;
 
             if (isActive)
-                return new SolidColorBrush(Colors.LightGreen);
+                return new SolidColorBrush(Colors.DarkGreen);
             else
-                return new SolidColorBrush(Colors.LightSalmon);
+                return new SolidColorBrush(Colors.Red);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

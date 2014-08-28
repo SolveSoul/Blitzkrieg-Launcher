@@ -48,6 +48,7 @@ namespace BlitzkriegLauncher
 
         #endregion
 
+        #region Control Events
         private void ChangePakState(object sender, RoutedEventArgs e)
         {
             CheckBox c = (CheckBox)sender;
@@ -65,5 +66,6 @@ namespace BlitzkriegLauncher
             GameLauncher.LaunchGame();
         }
 
+        #endregion
     }
 }
