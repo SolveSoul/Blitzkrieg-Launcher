@@ -20,15 +20,24 @@ namespace BlitzkriegLauncher.Helpers
         {
             ObservableCollectionExtended<PakFile> result = new ObservableCollectionExtended<PakFile>();
 
-            //get the paths of the files
-            string[] activePaks = Directory.GetFiles(baseDir, "*.pak");
-            string[] inactivePaks = Directory.GetFiles(baseDir, "*.inpak");
+            if (Directory.Exists(baseDir))
+            {
+                //get the paths of the files
+                string[] activePaks = Directory.GetFiles(baseDir, "*.pak");
+                string[] inactivePaks = Directory.GetFiles(baseDir, "*.inpak");
 
-            //get the active files
-            result.AddRange(GetPakFilesFromStringArray(activePaks, true));
-            result.AddRange(GetPakFilesFromStringArray(inactivePaks, false));
+                //get the active files
+                result.AddRange(GetPakFilesFromStringArray(activePaks, true));
+                result.AddRange(GetPakFilesFromStringArray(inactivePaks, false));
 
-            ReadPakExceptions();
+                ReadPakExceptions();
+            }
+            else
+            {
+                MessageBox.Show("No 'data' folder found. Place the launcher .exe inside your BlitzKrieg folder! \n", "No 'data' folder found.", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
+            }
+
 
             return result;
         }
@@ -53,7 +62,7 @@ namespace BlitzkriegLauncher.Helpers
             ObservableCollectionExtended<PakFile> result = new ObservableCollectionExtended<PakFile>();
 
             if (!File.Exists(xmlPath))
-                MessageBox.Show("Couldn't load the pakfiles to exclude, loading all pak-files...", "pakexceptions.xml not found", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Couldn't load the pakfiles to exclude, loading all pak-files...", "pakexceptions.xml not found", MessageBoxButton.OK, MessageBoxImage.Information);
 
             XmlDocument xdoc = new XmlDocument();
             xdoc.Load(xmlPath);
@@ -102,7 +111,7 @@ namespace BlitzkriegLauncher.Helpers
             }
             catch
             {
-                MessageBox.Show("The file was not found, please restart the launcher.", "File not found");
+                MessageBox.Show("The file was not found, please restart the launcher.", "File not found", MessageBoxButton.OK, MessageBoxImage.Error);
             }  
         }
 

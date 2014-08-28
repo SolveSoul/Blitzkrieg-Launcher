@@ -15,13 +15,15 @@ namespace BlitzkriegLauncher.Helpers
 
         public PakFileScanner()
         {
-            pakWatcher = new FileSystemWatcher(baseFolder);
-            pakWatcher.Filter = "*.*pak";
-            pakWatcher.Created += pakWatcher_Created;
-            pakWatcher.Changed += pakWatcher_Changed;
-            pakWatcher.Deleted += pakWatcher_Deleted;
-            pakWatcher.EnableRaisingEvents = true;
-            
+            if (Directory.Exists(baseFolder)) 
+            {
+                pakWatcher = new FileSystemWatcher(baseFolder);
+                pakWatcher.Filter = "*.*pak";
+                pakWatcher.Created += pakWatcher_Created;
+                pakWatcher.Changed += pakWatcher_Changed;
+                pakWatcher.Deleted += pakWatcher_Deleted;
+                pakWatcher.EnableRaisingEvents = true;
+            }
         }
 
         #region "watcher events"
