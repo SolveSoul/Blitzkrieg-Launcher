@@ -24,12 +24,13 @@ namespace BlitzkriegLauncher
     /// </summary>
     public partial class MainWindow : Window
     {
-        ObservableCollectionExtended<PakFile> pakFiles;
+        public ObservableCollectionExtended<PakFile> PakFiles { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
-            pakFiles = PakFileHandler.LoadPakFiles();
-            lstPakFiles.ItemsSource = pakFiles;
+            PakFiles = PakFileHandler.LoadPakFiles();
+            lstPakFiles.ItemsSource = PakFiles;
         }
 
         #region Window Events
@@ -51,7 +52,7 @@ namespace BlitzkriegLauncher
         {
             CheckBox c = (CheckBox)sender;
             string name = (string)c.Tag;
-            PakFile pakfileToHandle = PakFileHandler.FindPakFileByName(pakFiles, name);
+            PakFile pakfileToHandle = PakFileHandler.FindPakFileByName(PakFiles, name);
 
             if (pakfileToHandle != null) 
                 PakFileHandler.ChangePakFilesExtension(pakfileToHandle);
