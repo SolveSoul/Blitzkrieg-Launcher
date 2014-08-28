@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="Helpers\ObservableCollectionExtended.cs" />
     <Compile Include="Helpers\PakFileHandler.cs" />
+    <Compile Include="Helpers\PakFileScanner.cs" />
     <Compile Include="Models\PakFile.cs" />
     <Compile Include="Views\Launcher.xaml.cs">
       <DependentUpon>Launcher.xaml</DependentUpon>
