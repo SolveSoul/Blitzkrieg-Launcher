@@ -10,7 +10,7 @@ namespace BlitzkriegLauncher.Helpers
 {
     public class PakFileScanner
     {
-        private string baseFolder = AppDomain.CurrentDomain.BaseDirectory;
+        private string baseFolder = AppDomain.CurrentDomain.BaseDirectory + "data//";
         private FileSystemWatcher pakWatcher;
 
         public PakFileScanner()

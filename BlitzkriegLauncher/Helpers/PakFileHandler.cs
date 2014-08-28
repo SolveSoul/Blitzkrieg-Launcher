@@ -12,7 +12,7 @@ namespace BlitzkriegLauncher.Helpers
     public class PakFileHandler
     {
         //fields
-        private static string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        private static string baseDir = AppDomain.CurrentDomain.BaseDirectory + "data//";
 
         #region loading files
         public static ObservableCollectionExtended<PakFile> LoadPakFiles()
