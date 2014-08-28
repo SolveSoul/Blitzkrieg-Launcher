@@ -64,6 +64,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\BooleanToColorConverter.cs" />
     <Compile Include="Helpers\GameLauncher.cs" />
     <Compile Include="Helpers\ObservableCollectionExtended.cs" />
     <Compile Include="Helpers\PakFileHandler.cs" />
@@ -107,6 +108,7 @@
   <ItemGroup>
     <Resource Include="Blitzkrieg.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
