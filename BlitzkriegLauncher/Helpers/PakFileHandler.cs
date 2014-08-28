@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml;
 
 namespace BlitzkriegLauncher.Helpers
 {
@@ -27,6 +28,8 @@ namespace BlitzkriegLauncher.Helpers
             result.AddRange(GetPakFilesFromStringArray(activePaks, true));
             result.AddRange(GetPakFilesFromStringArray(inactivePaks, false));
 
+            ReadPakExceptions();
+
             return result;
         }
 
@@ -39,6 +42,28 @@ namespace BlitzkriegLauncher.Helpers
             {
                 PakFile pak = new PakFile() { Name = Path.GetFileNameWithoutExtension(pakPath), FullPath = pakPath, IsActive = isActive };
                 result.Add(pak);
+            }
+
+            return result;
+        }
+
+        private static IEnumerable<PakFile> ReadPakExceptions() 
+        {
+            string xmlPath = AppDomain.CurrentDomain.BaseDirectory + "pakexceptions.xml";
+            ObservableCollectionExtended<PakFile> result = new ObservableCollectionExtended<PakFile>();
+
+            if (!File.Exists(xmlPath))
+                MessageBox.Show("Couldn't load the pakfiles to exclude, loading all pak-files...", "pakexceptions.xml not found", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            XmlDocument xdoc = new XmlDocument();
+            xdoc.Load(xmlPath);
+
+            XmlNodeList nodes = xdoc.SelectNodes("/pakexceptions/pak");
+
+            foreach (XmlNode node in nodes)
+            {
+                PakFile file = new PakFile() { Name = node.InnerText, IsActive = true, FullPath = baseDir + node.InnerText };
+                result.Add(file);
             }
 
             return result;
