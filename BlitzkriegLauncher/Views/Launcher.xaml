@@ -7,18 +7,20 @@
     <Window.Resources>
         
         <converters:BooleanToColorConverter x:Key="BooleanToColorConverter" />
+        <converters:DescriptionConverter x:Key="DescriptionConverter" />
         
         <Style x:Key="PakFileItemStyle" TargetType="Grid">
             
         </Style>
         
         <DataTemplate x:Key="PakFileItemTemplate">
-            <Grid Height="35" Style="{StaticResource PakFileItemStyle}">
+            <Grid Height="40" Style="{StaticResource PakFileItemStyle}" ToolTip="{Binding Description, Converter={StaticResource DescriptionConverter}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="25" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="{Binding Name}" Margin="5,0,0,0" VerticalAlignment="Center" FontSize="15" Grid.Column="0" Foreground="{Binding IsActive, Converter={StaticResource BooleanToColorConverter}}" FontWeight="Bold" />
+                <TextBlock Text="{Binding Description, Converter={StaticResource DescriptionConverter}}" Margin="10,30,0,0" VerticalAlignment="Center" FontSize="10" Grid.Column="0" Foreground="{Binding IsActive, Converter={StaticResource BooleanToColorConverter}}" FontWeight="Bold" TextWrapping="Wrap" />
                 <CheckBox IsChecked="{Binding IsActive}" Tag="{Binding Name}" Click="ChangePakState" VerticalAlignment="Center" Grid.Column="1" />
             </Grid>
         </DataTemplate>
@@ -33,7 +35,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="20" />
+                <RowDefinition Height="15" />
             </Grid.RowDefinitions>
             
             <!-- Custom window border-->
@@ -59,7 +61,7 @@
             </Grid>
 
             <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Background="#f6b152">
-                <TextBlock Text="© Copyright SolveSoul" Foreground="White" Margin="5,2,0,2" />
+                <TextBlock Text="© Copyright SolveSoul" Foreground="White" Margin="5,2,0,2" FontSize="8" />
             </Grid>
             
         </Grid>

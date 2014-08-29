@@ -36,8 +36,14 @@ namespace BlitzkriegLauncher.Helpers
 
                 foreach (PakFile exc in paksToExclude)
                     foreach (PakFile p in paksToCheck)
-                        if (exc.Name == p.Name)
-                            result.Remove(p);
+                        if (exc.Name == p.Name) 
+                        {
+                            if (exc.IsHidden)                                                   //remove when the pak needs to be excluded
+                                result.Remove(p);
+                            else
+                                p.Description = exc.Description;                                //when the pak doesn't need hiding, the description can be loaded
+                        }
+                            
             }
             else
             {
@@ -72,18 +78,33 @@ namespace BlitzkriegLauncher.Helpers
                 MessageBox.Show("Couldn't load the pakfiles to exclude, please restore the 'pakexceptions.xml' file", "pakexceptions.xml not found", MessageBoxButton.OK, MessageBoxImage.Error);
                 Application.Current.Shutdown();
             }
-                
 
             XmlDocument xdoc = new XmlDocument();
             xdoc.Load(xmlPath);
 
-            XmlNodeList nodes = xdoc.SelectNodes("/pakexceptions/pak");
-
-            foreach (XmlNode node in nodes)
+            try
             {
-                PakFile file = new PakFile() { Name = node.InnerText, IsActive = true, FullPath = baseDir + node.InnerText };
-                result.Add(file);
+                XmlNodeList nodes = xdoc.SelectNodes("/pakexceptions/pak");
+
+                foreach (XmlNode node in nodes)
+                {
+                    PakFile file = new PakFile() { Name = node["name"].InnerText, IsActive = true, FullPath = baseDir + node["name"].InnerText, Description = node["description"].InnerText };
+
+                    if (Convert.ToBoolean(node["exclude"].InnerText))
+                        file.IsHidden = true;
+                    else
+                        file.IsHidden = false;
+
+                    result.Add(file);
+                }
             }
+            catch
+            {
+                MessageBox.Show("The XML file is corrupt, please restore the 'pakexceptions.xml' file.", "XML file is corrupt", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
+            }
+
+            
 
             return result;
         }

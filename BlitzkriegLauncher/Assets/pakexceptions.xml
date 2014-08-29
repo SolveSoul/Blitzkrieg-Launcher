@@ -1,5 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <pakexceptions>
-	<pak>buildings</pak>
-	<pak>units</pak>
+   <pak>
+    	<name>units</name>
+    	<description>This is the default units pak</description>
+    	<exclude>true</exclude>
+  </pak>
 </pakexceptions>

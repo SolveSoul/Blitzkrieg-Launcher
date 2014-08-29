@@ -65,6 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\BooleanToColorConverter.cs" />
+    <Compile Include="Converters\DescriptionConverter.cs" />
     <Compile Include="Helpers\GameLauncher.cs" />
     <Compile Include="Helpers\ObservableCollectionExtended.cs" />
     <Compile Include="Helpers\PakFileHandler.cs" />
