@@ -24,7 +24,7 @@ namespace BlitzkriegLauncher
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ObservableCollectionExtended<PakFile> PakFiles { get; set; }
+        private static ObservableCollectionExtended<PakFile> PakFiles { get; set; }
 
         public MainWindow()
         {

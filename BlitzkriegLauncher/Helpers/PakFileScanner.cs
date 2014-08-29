@@ -30,19 +30,27 @@ namespace BlitzkriegLauncher.Helpers
 
         private void pakWatcher_Created(object sender, FileSystemEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("file created");
+            PakFileHandler.FileChanged(FileEventState.CREATED);
         }
 
         private void pakWatcher_Changed(object sender, FileSystemEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("file changed");
+            PakFileHandler.FileChanged(FileEventState.CHANGED);
         }
 
         private void pakWatcher_Deleted(object sender, FileSystemEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("file deleted");
+            PakFileHandler.FileChanged(FileEventState.DELETED);
         }
 
         #endregion
     }
+
+    public enum FileEventState 
+    { 
+        CREATED,
+        CHANGED,
+        DELETED
+    }
+
 }

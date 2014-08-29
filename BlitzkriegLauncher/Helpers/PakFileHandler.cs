@@ -146,6 +146,24 @@ namespace BlitzkriegLauncher.Helpers
             }  
         }
 
+        public static void FileChanged(FileEventState fileEvent)
+        {
+            switch (fileEvent)
+            {
+                case FileEventState.CREATED:
+                    System.Diagnostics.Debug.WriteLine("file created");
+                    break;
+                case FileEventState.CHANGED:
+                    System.Diagnostics.Debug.WriteLine("file changed");
+                    break;
+                case FileEventState.DELETED:
+                    System.Diagnostics.Debug.WriteLine("file deleted");
+                    break;
+                default:
+                    break;
+            }
+        }
+
         #endregion
     }
 }

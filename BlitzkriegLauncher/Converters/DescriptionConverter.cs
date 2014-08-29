@@ -13,7 +13,7 @@ namespace BlitzkriegLauncher.Converters
         {
             string description = (string)value;
 
-            if (value == String.Empty || value == null)
+            if (description == String.Empty || value == null)
                 return "No description available";
             else
                 return description;
