@@ -41,6 +41,11 @@ namespace BlitzkriegLauncher
                 this.DragMove();
         }
 
+        private void MinimizeWindow(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -67,5 +72,6 @@ namespace BlitzkriegLauncher
         }
 
         #endregion
+
     }
 }

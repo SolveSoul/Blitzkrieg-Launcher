@@ -1,7 +1,27 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <pakexceptions>
-   <pak>
-    	<name>units</name>
+ <pak>
+    	<name>Data1_HighRes</name>
+    	<description>This is the default units pak 1 blabal</description>
+    	<exclude>true</exclude>
+  </pak>
+  <pak>
+    	<name>Data2_HighRes</name>
+    	<description>This is the default units pak</description>
+    	<exclude>true</exclude>
+  </pak>
+  <pak>
+    	<name>Data3_HighRes</name>
+    	<description>This is the default units pak</description>
+    	<exclude>true</exclude>
+  </pak>
+  <pak>
+    	<name>Data4_HighRes</name>
+    	<description>This is the default units pak</description>
+    	<exclude>true</exclude>
+  </pak>
+  <pak>
+    	<name>Community_Objects</name>
     	<description>This is the default units pak</description>
     	<exclude>true</exclude>
   </pak>

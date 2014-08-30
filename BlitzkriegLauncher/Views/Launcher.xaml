@@ -2,15 +2,18 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="clr-namespace:BlitzkriegLauncher.Converters"
-        Title="Blitzkrieg Launcher" Height="350" Width="525" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize">
+        Title="Blitzkrieg Launcher" Height="400" Width="725" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" Icon="../Blitzkrieg.ico">
     
     <Window.Resources>
         
         <converters:BooleanToColorConverter x:Key="BooleanToColorConverter" />
         <converters:DescriptionConverter x:Key="DescriptionConverter" />
+
+        <SolidColorBrush x:Key="BKOrange" Color="#f6b152" />
+        <SolidColorBrush x:Key="BKGray" Color="#858175" />
         
         <Style x:Key="PakFileItemStyle" TargetType="Grid">
-            
+            <Setter Property="Background" Value="{StaticResource BKGray}" />
         </Style>
         
         <DataTemplate x:Key="PakFileItemTemplate">
@@ -39,29 +42,40 @@
             </Grid.RowDefinitions>
             
             <!-- Custom window border-->
-            <Grid Grid.Row="0" MouseDown="DragWindow" Background="#f6b152">
+            <Grid Grid.Row="0" MouseDown="DragWindow" Background="{StaticResource BKOrange}">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="25" />
                 </Grid.ColumnDefinitions>
-                
-                <TextBlock Text="Blitzkrieg Launcher" Margin="5,0,0,0" Foreground="White" FontSize="14" VerticalAlignment="Center" Grid.Column="0" />
-                <Button Content="X" Width="20" Height="20" Background="DarkRed" Foreground="White" BorderThickness="1" Click="CloseWindow" Grid.Column="1" />
-
+                <Image Source="../Blitzkrieg.ico" Width="20" Height="20" Margin="2,0,0,0" />
+                <TextBlock Text="Blitzkrieg Launcher" Margin="5,0,0,0" Foreground="White" FontSize="14" VerticalAlignment="Center" Grid.Column="1" />
+                <Button Content="___" Width="20" Height="20" Background="{StaticResource BKGray}" Foreground="White" BorderThickness="1" Click="MinimizeWindow" ToolTip="Minimize" Grid.Column="2" />
+                <Button Content="X" Width="20" Height="20" Background="DarkRed" Foreground="White" BorderThickness="1" Click="CloseWindow" ToolTip="Close" Grid.Column="3" />
             </Grid>
             
             <!-- Window content-->
             <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="22" />
+                    <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
-                <ListBox x:Name="lstPakFiles" HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource PakFileItemTemplate}" Grid.Row="0" Opacity="0.6" />
-                <Button Content="Launch game" Click="LaunchGame" Grid.Row="1" Opacity="0.6" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="325" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ListBox x:Name="lstPakFiles" HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource PakFileItemTemplate}" Grid.RowSpan="2" Grid.Column="0" Margin="5" Background="{StaticResource BKGray}" Opacity="0.95" />
+                
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <TextBlock Foreground="White" Text="Launch options here" />
+                </Grid>
+                
+                <Button Content="Launch game" Click="LaunchGame" Grid.Row="1" Margin="5" Grid.Column="1" Width="100" HorizontalAlignment="Right" Background="{StaticResource BKGray}" Foreground="White" BorderBrush="White" />
             </Grid>
 
-            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Background="#f6b152">
-                <TextBlock Text="© Copyright SolveSoul" Foreground="White" Margin="5,2,0,2" FontSize="8" />
+            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Background="{StaticResource BKOrange}">
+                <TextBlock Text="Made by SolveSoul" Foreground="White" Margin="5,2,0,2" FontSize="8" />
             </Grid>
             
         </Grid>
