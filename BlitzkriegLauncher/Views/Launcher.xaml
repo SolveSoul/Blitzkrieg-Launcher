@@ -65,7 +65,8 @@
                     <ColumnDefinition Width="325" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <ListBox x:Name="lstPakFiles" HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource PakFileItemTemplate}" Grid.RowSpan="2" Grid.Column="0" Margin="5" Background="{StaticResource BKGray}" Opacity="0.95" />
+                <TextBlock Foreground="White" Text="Mods:" Grid.Column="0" Grid.Row="0" Margin="5" />
+                <ListBox x:Name="lstPakFiles" HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource PakFileItemTemplate}" Grid.RowSpan="2" Grid.Column="0" Margin="5,25,5,5" Background="{StaticResource BKGray}" Opacity="0.95" />
                 
                 <Grid Grid.Column="1" Grid.Row="0">
                     <TextBlock Foreground="White" Text="Windowed mode" Margin="25,5,0,0" />

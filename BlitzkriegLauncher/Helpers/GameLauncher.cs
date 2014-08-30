@@ -25,10 +25,8 @@ namespace BlitzkriegLauncher.Helpers
 
                 Application.Current.Shutdown();
             }
-            else 
-            {
+            else
                 MessageBox.Show("The game.exe file was not found, please place the launcher in the \n rootfolder of your Blitzkrieg folder.", "File not found", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
     }
 }

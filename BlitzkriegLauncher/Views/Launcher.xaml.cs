@@ -69,8 +69,7 @@ namespace BlitzkriegLauncher
 
             if (pakfileToHandle != null) 
                 PakFileHandler.ChangePakFilesExtension(pakfileToHandle);
-            
-            
+
         }
 
         private void LaunchGame(object sender, RoutedEventArgs e)
