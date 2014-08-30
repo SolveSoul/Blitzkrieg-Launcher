@@ -68,7 +68,8 @@
                 <ListBox x:Name="lstPakFiles" HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource PakFileItemTemplate}" Grid.RowSpan="2" Grid.Column="0" Margin="5" Background="{StaticResource BKGray}" Opacity="0.95" />
                 
                 <Grid Grid.Column="1" Grid.Row="0">
-                    <TextBlock Foreground="White" Text="Launch options here" />
+                    <TextBlock Foreground="White" Text="Windowed mode" Margin="25,5,0,0" />
+                    <CheckBox IsChecked="{Binding LaunchOptions.LaunchWindowed}" Margin="5,5,0,0" />
                 </Grid>
                 
                 <Button Content="Launch game" Click="LaunchGame" Grid.Row="1" Margin="5" Grid.Column="1" Width="100" HorizontalAlignment="Right" Background="{StaticResource BKGray}" Foreground="White" BorderBrush="White" />

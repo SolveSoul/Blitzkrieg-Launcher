@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlitzkriegLauncher.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -13,11 +14,15 @@ namespace BlitzkriegLauncher.Helpers
     {
         private static string exeFilePath = AppDomain.CurrentDomain.BaseDirectory + "game.exe";
 
-        public static void LaunchGame() 
+        public static void LaunchGame(LaunchOptions options) 
         {
             if (File.Exists(exeFilePath))
             {
-                Process.Start(exeFilePath);
+                if(options.LaunchWindowed)
+                    Process.Start(exeFilePath, "windowed");
+                else
+                    Process.Start(exeFilePath);
+
                 Application.Current.Shutdown();
             }
             else 

@@ -27,12 +27,15 @@ namespace BlitzkriegLauncher
     {
         private string baseFolder = AppDomain.CurrentDomain.BaseDirectory + "data//";
         private FileSystemWatcher pakWatcher;
-        private static ObservableCollectionExtended<PakFile> PakFiles { get; set; }
+        private static ObservableCollectionExtended<PakFile> PakFiles;
+
+        public LaunchOptions LaunchOptions { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
             PakFiles = PakFileHandler.LoadPakFiles();
+            this.LaunchOptions = new LaunchOptions();
             lstPakFiles.ItemsSource = PakFiles;
             InitPakFileScanner();
         }
@@ -72,7 +75,7 @@ namespace BlitzkriegLauncher
 
         private void LaunchGame(object sender, RoutedEventArgs e)
         {
-            GameLauncher.LaunchGame();
+            GameLauncher.LaunchGame(LaunchOptions);
         }
 
         #endregion
