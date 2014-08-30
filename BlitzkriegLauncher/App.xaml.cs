@@ -14,11 +14,5 @@ namespace BlitzkriegLauncher
     /// </summary>
     public partial class App : Application
     {
-        private PakFileScanner scanner;
-
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            scanner = new PakFileScanner();
-        }
     }
 }

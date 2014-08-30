@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,8 @@ namespace BlitzkriegLauncher
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string baseFolder = AppDomain.CurrentDomain.BaseDirectory + "data//";
+        private FileSystemWatcher pakWatcher;
         private static ObservableCollectionExtended<PakFile> PakFiles { get; set; }
 
         public MainWindow()
@@ -31,6 +34,7 @@ namespace BlitzkriegLauncher
             InitializeComponent();
             PakFiles = PakFileHandler.LoadPakFiles();
             lstPakFiles.ItemsSource = PakFiles;
+            InitPakFileScanner();
         }
 
         #region Window Events
@@ -73,5 +77,39 @@ namespace BlitzkriegLauncher
 
         #endregion
 
+        #region "PakFileScanner Events"
+
+        private void InitPakFileScanner()
+        {
+            if (Directory.Exists(baseFolder)) 
+            {
+                pakWatcher = new FileSystemWatcher(baseFolder);
+                pakWatcher.Filter = "*.*pak";
+                pakWatcher.Created += pakWatcher_Created;
+                pakWatcher.Changed += pakWatcher_Changed;
+                pakWatcher.Deleted += pakWatcher_Deleted;
+                pakWatcher.EnableRaisingEvents = true;
+            }
+        }
+        
+        private void pakWatcher_Created(object sender, FileSystemEventArgs e)
+        {
+            PakFiles = PakFileHandler.LoadPakFiles();
+            this.Dispatcher.Invoke((Action)(() =>{  lstPakFiles.ItemsSource = PakFiles; }));
+        }
+
+        private void pakWatcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            PakFiles = PakFileHandler.LoadPakFiles();
+            this.Dispatcher.Invoke((Action)(() => { lstPakFiles.ItemsSource = PakFiles; }));
+        }
+
+        private void pakWatcher_Deleted(object sender, FileSystemEventArgs e)
+        {
+            PakFiles = PakFileHandler.LoadPakFiles();
+            this.Dispatcher.Invoke((Action)(() => { lstPakFiles.ItemsSource = PakFiles; }));
+        }
+
+        #endregion
     }
 }
