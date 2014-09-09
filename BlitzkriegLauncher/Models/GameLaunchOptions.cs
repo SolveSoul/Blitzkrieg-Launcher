@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlitzkriegLauncher.Models
 {
-    public class LaunchOptions
+    public class GameLaunchOptions
     {
         public bool LaunchWindowed { get; set; }
     }

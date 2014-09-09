@@ -1,22 +1,10 @@
 ﻿using BlitzkriegLauncher.Helpers;
 using BlitzkriegLauncher.Models;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BlitzkriegLauncher
 {
@@ -29,13 +17,13 @@ namespace BlitzkriegLauncher
         private FileSystemWatcher pakWatcher;
         private static ObservableCollectionExtended<PakFile> PakFiles;
 
-        public LaunchOptions LaunchOptions { get; set; }
+        public GameLaunchOptions LaunchOptions { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
             PakFiles = PakFileHandler.LoadPakFiles();
-            this.LaunchOptions = new LaunchOptions();
+            this.LaunchOptions = new GameLaunchOptions();
             lstPakFiles.ItemsSource = PakFiles;
             InitPakFileScanner();
         }
@@ -74,7 +62,12 @@ namespace BlitzkriegLauncher
 
         private void LaunchGame(object sender, RoutedEventArgs e)
         {
-            GameLauncher.LaunchGame(LaunchOptions);
+            ExeLauncher.LaunchGame(LaunchOptions);
+        }
+
+        private void LaunchMapEditor(object sender, RoutedEventArgs e)
+        {
+            ExeLauncher.LaunchMapEditor();
         }
 
         #endregion
@@ -113,5 +106,6 @@ namespace BlitzkriegLauncher
         }
 
         #endregion
+
     }
 }

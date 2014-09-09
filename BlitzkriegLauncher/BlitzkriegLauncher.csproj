@@ -66,10 +66,10 @@
     </Compile>
     <Compile Include="Converters\BooleanToColorConverter.cs" />
     <Compile Include="Converters\DescriptionConverter.cs" />
-    <Compile Include="Helpers\GameLauncher.cs" />
+    <Compile Include="Helpers\ExeLauncher.cs" />
     <Compile Include="Helpers\ObservableCollectionExtended.cs" />
     <Compile Include="Helpers\PakFileHandler.cs" />
-    <Compile Include="Models\LaunchOptions.cs" />
+    <Compile Include="Models\GameLaunchOptions.cs" />
     <Compile Include="Models\PakFile.cs" />
     <Compile Include="Views\Launcher.xaml.cs">
       <DependentUpon>Launcher.xaml</DependentUpon>
