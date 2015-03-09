@@ -1,8 +1,43 @@
-﻿<Application x:Class="BlitzkriegLauncher.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<Application x:Class="BlitzkriegLauncher.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="Views/Launcher.xaml">
+             xmlns:converters="clr-namespace:BlitzkriegLauncher.Utilities.Converters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             StartupUri="View/Launcher.xaml">
     <Application.Resources>
-         
+        <vm:ViewModelLocator x:Key="VMLocator" xmlns:vm="clr-namespace:BlitzkriegLauncher.ViewModel" />
+
+        <converters:BooleanToColorConverter x:Key="BooleanToColorConverter" />
+        <converters:DescriptionConverter x:Key="DescriptionConverter" />
+
+        <SolidColorBrush x:Key="BkOrange" Color="#f6b152" />
+        <SolidColorBrush x:Key="BkGray" Color="#858175" />
+
+        <Style x:Key="PakFileItemStyle" TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource BkGray}" />
+        </Style>
+
+        <DataTemplate x:Key="PakFileItemTemplate">
+            <Grid Height="40" Style="{StaticResource PakFileItemStyle}" ToolTip="{Binding Description, Converter={StaticResource DescriptionConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="25" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Name}" Margin="5,0,0,0" VerticalAlignment="Center" FontSize="15"
+                           Grid.Column="0"
+                           Foreground="{Binding IsActive, Converter={StaticResource BooleanToColorConverter}}"
+                           FontWeight="Bold" />
+                <TextBlock Text="{Binding Description, Converter={StaticResource DescriptionConverter}}"
+                           Margin="10,30,0,0" VerticalAlignment="Center" FontSize="10" Grid.Column="0"
+                           Foreground="{Binding IsActive, Converter={StaticResource BooleanToColorConverter}}"
+                           FontWeight="Bold" TextWrapping="Wrap" />
+                <CheckBox IsChecked="{Binding IsActive}" VerticalAlignment="Center" Grid.Column="1">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding DataContext.PakFileCheckedCommand, ElementName=LauncherTabItem}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </CheckBox>
+            </Grid>
+        </DataTemplate>
     </Application.Resources>
 </Application>

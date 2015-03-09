@@ -37,8 +37,24 @@
     <ApplicationIcon>Blitzkrieg.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight">
+      <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras">
+      <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform">
+      <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -56,7 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\Launcher.xaml">
+    <Page Include="View\Launcher.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -64,15 +80,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\BooleanToColorConverter.cs" />
-    <Compile Include="Converters\DescriptionConverter.cs" />
-    <Compile Include="Helpers\ConfigHandler.cs" />
-    <Compile Include="Helpers\ExeLauncher.cs" />
-    <Compile Include="Helpers\ObservableCollectionExtended.cs" />
-    <Compile Include="Helpers\PakFileHandler.cs" />
-    <Compile Include="Models\GameLaunchOptions.cs" />
-    <Compile Include="Models\PakFile.cs" />
-    <Compile Include="Views\Launcher.xaml.cs">
+    <Compile Include="Utilities\Converters\BooleanToColorConverter.cs" />
+    <Compile Include="Utilities\Converters\DescriptionConverter.cs" />
+    <Compile Include="Utilities\ExeLauncher.cs" />
+    <Compile Include="Utilities\PakFileHandler.cs" />
+    <Compile Include="Model\GameLaunchOptions.cs" />
+    <Compile Include="Model\PakException.cs" />
+    <Compile Include="Model\PakFile.cs" />
+    <Compile Include="Service\PakFileService.cs" />
+    <Compile Include="Utilities\XmlSerializer.cs" />
+    <Compile Include="ViewModel\LauncherVM.cs" />
+    <Compile Include="ViewModel\SettingsVM.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\Launcher.xaml.cs">
       <DependentUpon>Launcher.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -95,6 +115,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -112,6 +133,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\pakexceptions.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\buttonart.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

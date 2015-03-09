@@ -1,49 +1,50 @@
-﻿using BlitzkriegLauncher.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Xml;
+using BlitzkriegLauncher.Model;
 
-namespace BlitzkriegLauncher.Helpers
+namespace BlitzkriegLauncher.Utilities
 {
     public class PakFileHandler
     {
         //fields
-        private static string baseDir = AppDomain.CurrentDomain.BaseDirectory + "data//";
+        private static readonly string BaseDir = AppDomain.CurrentDomain.BaseDirectory + "data//";
+
 
         #region loading files
-        public static ObservableCollectionExtended<PakFile> LoadPakFiles()
-        {
-            ObservableCollectionExtended<PakFile> result = new ObservableCollectionExtended<PakFile>();
 
-            if (Directory.Exists(baseDir))
+        public static IEnumerable<PakFile> LoadPakFiles()
+        {
+            List<PakFile> result = new List<PakFile>();
+
+            if (Directory.Exists(BaseDir))
             {
                 //get the paths of the files
-                string[] activePaks = Directory.GetFiles(baseDir, "*.pak");
-                string[] inactivePaks = Directory.GetFiles(baseDir, "*.inpak");
+                string[] activePaks = Directory.GetFiles(BaseDir, "*.pak");
+                string[] inactivePaks = Directory.GetFiles(BaseDir, "*.inpak");
 
                 //get the active files
                 result.AddRange(GetPakFilesFromStringArray(activePaks, true));
                 result.AddRange(GetPakFilesFromStringArray(inactivePaks, false));
 
                 //remove all the .pak-files that may not be edited
-                ObservableCollectionExtended<PakFile> paksToExclude = ReadPakExceptions();
-                List<PakFile> paksToCheck = result.ToList();                                    //Whilst foreaching, the collection may not be changed, that's why we make a copy, also a list because an observablecollection copies the values
+                List<PakFile> paksToExclude = ReadPakExceptions().ToList();
+                List<PakFile> paksToCheck = result.ToList();
 
                 foreach (PakFile exc in paksToExclude)
                     foreach (PakFile p in paksToCheck)
-                        if (exc.Name == p.Name) 
+                        if (exc.Name == p.Name)
                         {
                             if (exc.IsHidden)                                                   //remove when the pak needs to be excluded
                                 result.Remove(p);
                             else
                                 p.Description = exc.Description;                                //when the pak doesn't need hiding, the description can be loaded
                         }
-                            
+
+
             }
             else
             {
@@ -55,23 +56,15 @@ namespace BlitzkriegLauncher.Helpers
             return result;
         }
 
-        private static ObservableCollectionExtended<PakFile> GetPakFilesFromStringArray(string[] pakFiles, bool isActive) 
+        private static IEnumerable<PakFile> GetPakFilesFromStringArray(string[] pakFiles, bool isActive)
         {
-            ObservableCollectionExtended<PakFile> result = new ObservableCollectionExtended<PakFile>();
-
-            foreach (string pakPath in pakFiles)
-            {
-                PakFile pak = new PakFile() { Name = Path.GetFileNameWithoutExtension(pakPath), FullPath = pakPath, IsActive = isActive };
-                result.Add(pak);
-            }
-
-            return result;
+            return pakFiles.Select(pakPath => new PakFile {Name = Path.GetFileNameWithoutExtension(pakPath), FullPath = pakPath, IsActive = isActive });
         }
 
-        private static ObservableCollectionExtended<PakFile> ReadPakExceptions() 
+        private static IEnumerable<PakFile> ReadPakExceptions() 
         {
             string xmlPath = AppDomain.CurrentDomain.BaseDirectory + "pakexceptions.xml";
-            ObservableCollectionExtended<PakFile> result = new ObservableCollectionExtended<PakFile>();
+            List<PakFile> result = new List<PakFile>();
 
             if (!File.Exists(xmlPath)) 
             {
@@ -88,7 +81,7 @@ namespace BlitzkriegLauncher.Helpers
 
                 foreach (XmlNode node in nodes)
                 {
-                    PakFile file = new PakFile() { Name = node["name"].InnerText, IsActive = true, FullPath = baseDir + node["name"].InnerText, Description = node["description"].InnerText };
+                    PakFile file = new PakFile() { Name = node["name"].InnerText, IsActive = true, FullPath = BaseDir + node["name"].InnerText, Description = node["description"].InnerText };
 
                     if (Convert.ToBoolean(node["exclude"].InnerText))
                         file.IsHidden = true;
@@ -104,7 +97,6 @@ namespace BlitzkriegLauncher.Helpers
                 Application.Current.Shutdown();
             }
 
-            
 
             return result;
         }
@@ -112,19 +104,21 @@ namespace BlitzkriegLauncher.Helpers
         #endregion
 
         #region finding files
-        public static PakFile FindPakFileByName(IEnumerable<PakFile> files, string name) 
+
+        public static PakFile FindPakFileByName(IEnumerable<PakFile> files, string name)
         {
-            foreach (PakFile pf in files)
+            foreach (var pf in files)
                 if (pf.Name == name)
                     return pf;
-            
+
             return null;
         }
+
         #endregion
 
         #region changing files
 
-        public static void ChangePakFilesExtension(PakFile file) 
+        public static void ChangePakFilesExtension(PakFile file)
         {
             try
             {
@@ -132,7 +126,6 @@ namespace BlitzkriegLauncher.Helpers
                 {
                     File.Move(file.FullPath, Path.ChangeExtension(file.FullPath, ".inpak"));
                     file.ChangeExtension();
-
                 }
                 else
                 {
@@ -142,8 +135,9 @@ namespace BlitzkriegLauncher.Helpers
             }
             catch
             {
-                MessageBox.Show("The file was not found, please restart the launcher.", "File not found", MessageBoxButton.OK, MessageBoxImage.Error);
-            }  
+                MessageBox.Show("The file was not found, please restart the launcher.", "File not found",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         #endregion
