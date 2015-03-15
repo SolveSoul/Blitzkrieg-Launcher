@@ -53,7 +53,7 @@
                         <TextBlock Foreground="White" Text="Active mods:" Grid.Column="0" Grid.Row="0" Margin="9,5,5,5" />
                         <ListBox HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource PakFileItemTemplate}" ItemsSource="{Binding PakFiles}" SelectedItem="{Binding SelectedPakFile}" Grid.RowSpan="2" Grid.Row="0" Grid.Column="0" Margin="5,23,5,5" Background="{StaticResource BkGray}" Opacity="0.95" />
 
-                        <Button Content="Launch mapeditor" Grid.Row="0" Margin="5" Grid.Column="1" Foreground="White" BorderBrush="White" Command="{Binding LaunchMapEditorCommand}" Height="60" Width="150">
+                        <Button Content="Launch mapeditor" Grid.Row="0" Margin="5" Grid.Column="1" Foreground="White" BorderBrush="White" Command="{Binding LaunchMapEditorCommand}" Width="150" Height="54">
                             <Button.Background>
                                 <ImageBrush ImageSource="/Assets/buttonart.png" />
                             </Button.Background>
@@ -73,7 +73,6 @@
             </Grid>
 
         </Grid>
-
 
 
     </Border>
